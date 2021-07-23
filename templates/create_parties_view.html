@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Gathering
+{% endblock %}
+
+{% block main %}
+    
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <h1>Status of your guests</h1>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in people_status.items() %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <form action="/org_view" method="post">
+                <div class="col text-center">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <input class="btn btn-primary" type="button" onclick="location.href='/clear_gathering';" value="Clear" />
+        </div>
+
+    </div>
+    
+{% endblock %}
