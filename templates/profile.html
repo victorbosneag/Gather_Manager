@@ -1,14 +1,19 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Invitations
+    Profile
 {% endblock %}
 
 {% block main %}
-    
     <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <h1>Gatherings you've been invited to:</h1>
+        <div class="row justify-content-center">
+            <h1 class="text-center">{{ username }}</h1>
+        </div>
+        <div class="row justify-content-center">
+            <h3 class="text-center">Email {{ email }}</h3>
+        </div>
+        <div class="row justify-content-center">
+            <h2 class="text-center">Events user was invited to:</h2>
         </div>
         <div class="row align-items-center justify-content-center">
             <table class="table">
@@ -16,23 +21,19 @@
                     <tr>
                         <th scope="col">Host</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Host Email</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for value in parties_user %}
+                    {% for value in list %}
                         <tr>
                             <td>{{ value[0] }}</td>
                             <td>{{ value[1] }}</td>
-                            <td>{{ value[2] }}</td>
+                            
                         </tr>
                     {% endfor %}
                 </tbody>
 
             </table>
         </div>
-        
-
     </div>
-    
 {% endblock %}

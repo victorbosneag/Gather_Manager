@@ -68,15 +68,11 @@ def index():
     user_events = User_history.query.filter_by(user_id=session["user_id"])
     user_events = user_events.filter(User_history.event_date_start <= datetime.now())
     user_events = user_events.order_by(User_history.event_date_start.desc())
+    
     for event_i in user_events.all():
-        print(event_i.event_type)
-    for event_i in user_events.all():
-        print(event_i.event_type)
+        
         if event_i.event_type == "Tested Negative":
-            print("--------")
-            print(event_i.event_date_end)
-            print(datetime.now())
-            print("--------")
+            
             if event_i.event_date_end >= datetime.now():
                 current_status = event_i.event_type
                 return render_template("index.html", user=user_conn.username, user_curr_status=current_status)
@@ -91,6 +87,40 @@ def index():
     #print(user_events.all())
     return render_template("index.html", user=user_conn.username, user_curr_status=current_status)
 #User.query.filter_by(id=session["user_id"]).first().username
+@app.route("/profile_search", methods=["GET", "POST"])
+@login_required
+def profile_search():
+    if request.method == "POST":
+        if not request.form.get("username"):
+            return redirect('/profile_search')
+        username = request.form.get("username")
+        found_user = User.query.filter_by(username=username).first()
+        print(username)
+        if found_user:
+            url = "/profile/" + username
+            return redirect(url)
+        else:
+            return redirect("/profile_search")
+    else:
+        return render_template("profile_search.html")
+
+
+@app.route("/profile/<person_name>")
+@login_required
+def profile(person_name):
+    selected_user = User.query.filter_by(username=person_name).first()
+    if selected_user:
+        username_user = selected_user.username
+        email = selected_user.email
+        parties = selected_user.parties
+        party_list = []
+        for party in parties:
+            party_list.append([party.host, party.party_date])
+    
+        return render_template("profile.html",username=username_user, email=email, list=party_list)
+    else:
+        return redirect('/')
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -151,8 +181,7 @@ def register():
             #db.session.add(default_event)
             #db.session.commit()
             #session["user_id"] = new_user.id
-            print(new_user.id)
-            print()
+            
             return redirect('/login')
 
     else:
@@ -203,6 +232,9 @@ def status():
 def create_parties():
     
     if request.method == "POST":
+        host_username = User.query.filter_by(id=session["user_id"]).first().username
+        if host_username not in session["invites"]:
+            session['invites'].append(host_username)
         name = request.form.get("name")
         date = request.form.get("party_date")
         if not name or not date:
@@ -229,8 +261,10 @@ def create_parties_view():
             new_party = Party(host=User.query.filter_by(id=session["user_id"]).first().username, user=User.query.filter_by(username=person).first(), party_date=session['date'], host_email=User.query.filter_by(id=session["user_id"]).first().email)
             db.session.add(new_party)
             db.session.commit()
-        session.pop('invites', None)
-        session.pop('date', None)
+        #session.pop('invites', None)
+        #session.pop('date', None)
+        session['invites'] = []
+        session['date'] = None
         return redirect('/')
     else:
         people_dict = {}
@@ -257,7 +291,8 @@ def create_parties_view():
                     diff = event_i.event_date_end.date() - session["date"].date()
                     current_status = event_i.event_type + " expires in " + str(diff.days) + " days"
                     break
-            people_dict[person] = current_status
+            link = "/profile/" + person
+            people_dict[person] = [link, current_status]
         return render_template("create_parties_view.html", people_status=people_dict)
 
 @app.route('/gatherings')
@@ -265,9 +300,13 @@ def create_parties_view():
 def view_parties():
     user_parties = Party.query.filter_by(user_id=session["user_id"]).all()
     party_dict = {}
+    party_list = []
     for user_party in user_parties:
-        party_dict[user_party.host] = [user_party.party_date.strftime('%Y-%m-%d'), user_party.host_email]
-    return render_template("invite.html", parties_user=party_dict)
+        party_list.append([user_party.host, user_party.party_date.strftime('%Y-%m-%d'), user_party.host_email])
+        
+        #party_dict[user_party.host] = [user_party.party_date.strftime('%Y-%m-%d'), user_party.host_email]
+
+    return render_template("invite.html", parties_user=party_list)
 
 
 @app.route('/clear_gathering')

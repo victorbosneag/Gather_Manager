@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile search
+{% endblock %}
+
+{% block main %}
+
+    <form action="/profile_search" method="post">
+        <div class="form-group">
+            <input class="form-control" name="username" autocomplete="off" placeholder="Username" autofocus type="text">
+        </div>
+        <div class="col text-center">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+        
+    </form>
+{% endblock %}

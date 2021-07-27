@@ -21,8 +21,15 @@
                 <tbody>
                     {% for key, value in people_status.items() %}
                         <tr>
-                            <td>{{ key }}</td>
-                            <td>{{ value }}</td>
+                            <td>
+                                <a href="{{ value[0] }}">
+                                    <div style="height:100%;width:100%">
+                                        {{ key }}
+                                    </div>
+                                </a>
+                            </td>
+
+                            <td>{{ value[1] }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
