@@ -41,6 +41,6 @@ The database, powered by SQLite3 and interfaced with Python using Flask-SQLAlche
 
 ## How to install
 - Make sure you have Python3, Flask and Flask-SQLAlchemy installed on your computer
-- Clone this repo `git clone https://github.com/victorbosneag/Gather_Manager/`
+- Clone this repo `git clone https://github.com/victorbosneag/Gather_Manager.git`
 - Run `python3 app.py`
 
