@@ -17,8 +17,8 @@ Using Gather Manager you have 4 main actions available:<br/>
    - Tested positive for COVID
    - Tested negative for COVID
 2. Create a gathering and invite users. When adding the users to a meeting their statuses will be shown in order for the host to know wich people can attend safely also having the ability to cancel if too few people can come.
-3. Viewing the gatherings you're invited to while also seeing the host's name and email to aid in planning the gathering.
-4. Searching for users' profiles in order to view what gatherings the user is invited to helping you plan around your invitees' availability.
+3. Viewing the gatherings you're invited to, while also seeing the host's name and email to aid in planning the gathering.
+4. Searching for users' profiles in order to view what gatherings the user is invited to, helping you plan around your invitees' availability.
 
 ### Routing
 All routes (except for register and login) require the user to be logged in. There are 12 routes in total one of them (`/profile/<person_name>`) being dynamic in the sense that when a user navigates to a url of this type where `<person_name>` is the username of an actual user the user making the request will be presented with the profile page of the selected user.
@@ -31,7 +31,7 @@ When a user login his / her unique user id is stored in the session to verify th
 The database, powered by SQLite3 and interfaced with Python using Flask-SQLAlchemy, holds all the users' data. It is structured in 3 tables as follows:<br/>
 1. `Users` table holds all of the users' information (id, username, email, gatherings to which the user received an invitation, user status history)
 2. `User_history` table holds the users' COVID status history (id of status event, type of event, date of event, user id)
-3. 'Party' table hold all gathering information (gathering id, host name, host email, invitee id, gathering date)
+3. `Party` table hold all gathering information (gathering id, host name, host email, invitee id, gathering date)
 
 ### Future improvements
 - Adding email notifications when a user is invited to gathering
