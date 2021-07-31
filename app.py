@@ -186,6 +186,25 @@ def register():
 
     else:
         return render_template("register.html")
+@app.route("/password", methods=["GET", "POST"])
+@login_required
+def password():
+    if request.method == "POST":
+        if not request.form.get("password1"):
+            return redirect('/password')
+        if not request.form.get("password2"):
+            return redirect('/password')
+        pass1 = request.form.get("password1")
+        pass2 = request.form.get("password2")
+        if pass1 != pass2:
+            return redirect('/password')
+        else:
+            log_in_user = User.query.filter_by(id=session["user_id"]).first()
+            log_in_user.password = gen_hash(pass1)
+            db.session.commit()
+            return redirect('/login')
+    else:
+        return render_template("password.html")
 
 @app.route("/logout")
 def logout():
