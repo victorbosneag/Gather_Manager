@@ -1,6 +1,6 @@
 # CS50 final project - Gather Manager
 
-This project is a webapp that helps users to schedule meetings in such a manner that all invitees can meet without spreading COVID-19.This webapp has been implemented in Flask using Bootstrap for the backend building up the skills that CS50 has already taught me.<br/>
+This project is a webapp that helps users to schedule meetings in such a manner that all invitees can meet without spreading COVID-19.This webapp has been implemented in Flask for the backend using Bootstrap for the frontend, building up the skills that CS50 has already taught me.<br/>
 
 **Technologies used:**
 1. Flask (for backend: requests and rendering webpages)
