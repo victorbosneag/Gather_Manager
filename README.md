@@ -16,7 +16,7 @@ Using Gather Manager you have 4 main actions available:<br/>
    - Vaccinated
    - Tested positive for COVID
    - Tested negative for COVID
-2. Create a gathering and invite users. When adding the users to a meeting their statuses will be shown in order for the host to know wich people can attend safely also having the ability to cancel if too few people can come.
+2. Create a gathering and invite users. When adding the users to a meeting their statuses will be shown in order for the host to know which people can attend safely also having the ability to cancel if too few people can come.
 3. Viewing the gatherings you're invited to, while also seeing the host's name and email to aid in planning the gathering.
 4. Searching for users' profiles in order to view what gatherings the user is invited to, helping you plan around your invitees' availability.
 
